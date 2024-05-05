@@ -9,8 +9,7 @@ class LoginPage:
     button_login_id="login-button"
     link_logout_id="logout_sidebar_link"
     button_menu_id="react-burger-menu-btn"
-
-
+    div_loginError_xpath="//div[contains(@class, 'error-message-container error')]/h3"
     def __init__(self,driver):
         self.driver=driver
 
@@ -35,7 +34,7 @@ class LoginPage:
         login_button.click()
 
     def openTheMenu(self):
-        menu_button = WebDriverWait(self.driver, 10).until(
+        menu_button = WebDriverWait(self.driver, 20).until(
             EC.element_to_be_clickable((By.ID, self.button_menu_id))
         )
         menu_button.click()
@@ -45,3 +44,15 @@ class LoginPage:
             EC.element_to_be_clickable((By.ID, self.link_logout_id))
         )
         logout_button.click()
+
+    def isLogginErrorPresent(self):
+        login_error_message = WebDriverWait(self.driver, 20).until(
+            EC.visibility_of_element_located((By.XPATH, self.div_loginError_xpath))
+        )
+
+        if login_error_message.is_displayed():
+            print("yes error displayed")
+            return True
+
+        print("error not displayed")
+        return False

@@ -1,0 +1,20 @@
+// libraries
+
+selenium: web automation framework (tool)
+pytest: python unit-test framework
+pytest-xdist: to be able to run parallel tests
+pytest-html: to generate pytest html report
+allure-pytest: generate allure reports
+openpyxl: MS excel support
+
+
+// commands
+
+run specific test case: pytest -v -s testcases/test_login.py
+
+run test on specific browser: pytest -v -s testcases/test_login.py --browser chrome
+
+to execute parallel tests (eg 3 tests): pytest -v -s -n=3 testcases/test_login.py --browser chrome
+
+generate an html report: pytest -v -s -n=2 --html=Reports/report.html testcases/test_login.py --browser chrome
+

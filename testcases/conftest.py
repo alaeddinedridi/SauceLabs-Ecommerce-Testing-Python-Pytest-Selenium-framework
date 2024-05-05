@@ -10,8 +10,7 @@ def setup(browser):
     elif browser=="firefox":
         driver = webdriver.Firefox()
     else:
-        driver = webdriver.Chrome()
-        #driver = webdriver.Edge()
+        driver = webdriver.Edge()
 
     driver.maximize_window()
     return driver
@@ -25,3 +24,21 @@ def pytest_addoption(parser):
 @pytest.fixture()
 def browser(request):
     return request.config.getoption("--browser")
+
+
+# Pytest HTML report
+# it is a hook for adding environment info to HTML report
+def pytest_configure(config):
+    # config._metadata['Project Name']="SauceLabs"
+    # config._metadata['Module Name'] = "Customers"
+    # config._metadata['Tester'] = "Aladdin Dridi"
+    config._metadata = {
+        "Tester": "Aladdin Dridi",
+        "Project Name": "SauceLabs ecommerce testing practice",
+    }
+
+# this is a hook to delete/modify environment info to HTML report
+# @pytest.mark.optionalHook
+# def pytest_metadata(metadata):
+#     metadata.pop("JAVA_HOME", None)
+#     metadata.pop("Plugins", None)

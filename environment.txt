@@ -20,3 +20,8 @@ to execute parallel tests (eg 3 tests): pytest -v -s -n=3 testcases/test_login.p
 
 generate an html report: pytest -v -s -n=2 --html=Reports/report.html testcases/test_login.py --browser chrome
 
+run tests with mark(tag) = sanity : pytest -v -s -m "sanity" --html=Reports/report.html testcases/ --browser chrome
+
+if a test has more than a marker: pytest -v -s -m "sanity and regression" --html=Reports/report.html testcases/ --browser chrome
+
+if a test has more than a marker: pytest -v -s -m "sanity or regression" --html=Reports/report.html testcases/ --browser chrome

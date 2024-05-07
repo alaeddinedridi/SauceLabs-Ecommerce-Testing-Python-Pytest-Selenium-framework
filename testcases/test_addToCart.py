@@ -15,8 +15,7 @@ class Test_addToCart:
     # initialize the logger
     logger = LogGeneration.generateLog()
 
-
-
+    @pytest.mark.regression
     def test_addToCart(self,setup):
         self.logger.info("*********************** verifying Login Test ***********************")
         self.driver = setup

@@ -15,6 +15,9 @@ class Test_Login:
     logger=LogGeneration.generateLog()
 
     # to use a fixture, we put the name of the fixture as a parameter for a function where we want to use it
+
+    # customer markers like regression must be declared inside pytest.ini
+    @pytest.mark.regression
     def test_homePageTitle(self,setup):
         self.logger.info("*********************** Test_login ***********************")
         self.logger.info("*********************** verifying Home Page Title ***********************")
@@ -32,6 +35,7 @@ class Test_Login:
             self.logger.error("*********************** Home Page Title test Failed ***********************")
             assert False
 
+    @pytest.mark.sanity
     def test_login(self,setup):
         self.logger.info("*********************** verifying Login Test ***********************")
         self.driver = setup

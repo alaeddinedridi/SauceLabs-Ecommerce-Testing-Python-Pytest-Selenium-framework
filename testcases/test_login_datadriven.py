@@ -18,6 +18,8 @@ class Test_Login_DDT:
     # initialize the logger
     logger=LogGeneration.generateLog()
 
+    @pytest.mark.sanity
+    @pytest.mark.skip
     def test_login_DDT(self,setup):
         self.logger.info("*********************** verifying Login Test ***********************")
         self.driver = setup

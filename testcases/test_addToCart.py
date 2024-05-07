@@ -49,4 +49,6 @@ class Test_addToCart:
 
         self.expectedTotalPrice=self.inventoryPage.getTotalItemsPrice() + self.tax
 
-        assert self.totalPrice == self.expectedTotalPrice
+        # when we add a message to be returned, it becomes soft assertion which means if the first assertion fails, the next assertion will still get executed
+        # otherwise it is a hard assertion and if the first assert fails, it won't check the next assertions
+        assert self.totalPrice == self.expectedTotalPrice, "The total price is not correct"

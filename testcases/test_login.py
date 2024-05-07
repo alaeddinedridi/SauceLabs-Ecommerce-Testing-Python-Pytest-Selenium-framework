@@ -35,6 +35,7 @@ class Test_Login:
             self.logger.error("*********************** Home Page Title test Failed ***********************")
             assert False
 
+    @pytest.mark
     @pytest.mark.sanity
     def test_login(self,setup):
         self.logger.info("*********************** verifying Login Test ***********************")

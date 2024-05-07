@@ -10,6 +10,8 @@ openpyxl: MS excel support
 
 // commands
 
+run all the tests: pytest -v -s
+
 run specific test case: pytest -v -s testcases/test_login.py
 
 run test on specific browser: pytest -v -s testcases/test_login.py --browser chrome

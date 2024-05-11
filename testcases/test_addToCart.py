@@ -15,7 +15,8 @@ class Test_addToCart:
     # initialize the logger
     logger = LogGeneration.generateLog()
 
-    @pytest.mark.regression
+    @pytest.mark.dev
+
     def test_addToCart(self,setup):
         self.logger.info("*********************** verifying Login Test ***********************")
         self.driver = setup
@@ -35,7 +36,8 @@ class Test_addToCart:
             assert False
 
         self.inventoryPage = InventoryPage(self.driver)
-        self.inventoryPage.addToCart()
+        # Add to cart 3 products
+        self.inventoryPage.addToCart(3)
         self.inventoryPage.checkout()
 
         self.checkoutPage = CheckoutPage(self.driver)
@@ -45,10 +47,17 @@ class Test_addToCart:
         self.checkoutPage.continueCheckout()
 
         self.tax = self.checkoutPage.getTax()
-        self.totalPrice= self.checkoutPage.getItemsPrice() + self.tax
+        self.inventoryPage.calculateTax()
+        self.expectedTax= self.inventoryPage.getTotalTax()
+        assert self.tax==self.expectedTax, "The tax is not correct"
 
-        self.expectedTotalPrice=self.inventoryPage.getTotalItemsPrice() + self.tax
+        self.totalPrice= self.checkoutPage.getItemsPrice() + self.tax
+        self.expectedTotalPrice=self.inventoryPage.getTotalItemsPrice() + self.expectedTax
+        assert self.totalPrice == self.expectedTotalPrice, "The total price is not correct"
+
+        self.totalToPay= self.totalPrice + self.tax
+        self.ExpectedTotalToPay= self.expectedTotalPrice + self.expectedTax
 
         # when we add a message to be returned, it becomes soft assertion which means if the first assertion fails, the next assertion will still get executed
         # otherwise it is a hard assertion and if the first assert fails, it won't check the next assertions
-        assert self.totalPrice == self.expectedTotalPrice, "The total price is not correct"
+        assert self.totalToPay == self.ExpectedTotalToPay, "The total price to pay is not correct"

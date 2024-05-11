@@ -47,13 +47,19 @@ class CheckoutPage:
         totalPrice_element = WebDriverWait(self.driver, 10).until(
             EC.visibility_of_element_located((By.CLASS_NAME, self.totalItemsPrice_class))
         )
-        return float(totalPrice_element.text.split("$",1)[1])
+        totalPrice=float(totalPrice_element.text.split("$",1)[1])
+        print("This is items price: ",totalPrice)
+        return totalPrice
 
     def getTax(self):
         tax_element = WebDriverWait(self.driver, 10).until(
             EC.visibility_of_element_located((By.CLASS_NAME, self.tax_class))
         )
-        return float(tax_element.text.split("$",1)[1])
+        tax=float(tax_element.text.split("$",1)[1])
+        print("this is the tax : ",tax)
+        return tax
+
+
     def continueCheckout(self):
         continue_button = WebDriverWait(self.driver, 10).until(
             EC.element_to_be_clickable((By.ID, self.continue_button_id))

@@ -16,9 +16,11 @@ class LoginPage:
     def enterUsername(self,username):
         username_textbox = WebDriverWait(self.driver, 10).until(
             EC.presence_of_element_located((By.ID, self.textbox_username_id))
+
         )
         username_textbox.clear()
         username_textbox.send_keys(username)
+
 
     def enterPassword(self,password):
         password_textbox = WebDriverWait(self.driver, 10).until(

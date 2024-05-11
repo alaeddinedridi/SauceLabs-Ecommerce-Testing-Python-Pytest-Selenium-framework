@@ -1,5 +1,6 @@
 from selenium import webdriver
 import pytest
+from datetime import datetime
 
 # Fixtures are used as a common piece of code that we would need to use each time, so to prevent rewriting
 # the same code, we just call the same fixture defined here
@@ -36,6 +37,12 @@ def pytest_configure(config):
         "Tester": "Aladdin Dridi",
         "Project Name": "SauceLabs ecommerce testing practice",
     }
+
+    """ Create a log file if log_file is not mentioned in *.ini file"""
+    if not config.option.log_file:
+        timestamp = datetime.strftime(datetime.now(), '%Y-%m-%d_%H-%M-%S')
+        config.option.log_file = './Logs/log.' + timestamp
+
 
 # this is a hook to delete/modify environment info to HTML report
 # @pytest.mark.optionalHook

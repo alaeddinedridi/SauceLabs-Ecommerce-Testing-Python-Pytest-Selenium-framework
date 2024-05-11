@@ -3,6 +3,7 @@ from selenium import webdriver
 from pageObjects.LoginPage import LoginPage
 from pageObjects.CheckoutPage import CheckoutPage
 from pageObjects.InventoryPage import InventoryPage
+from pageObjects.CartPage import CartPage
 from utilities.read_config import ReadConfig
 from utilities.custom_logger import LogGeneration
 
@@ -11,7 +12,9 @@ class Test_addToCart:
     baseUrl = ReadConfig.getApplicationURL()
     username = ReadConfig.getUsername()
     password = ReadConfig.getPassword()
-
+    firstname = ReadConfig.getFirstname()
+    lastname = ReadConfig.getLastname()
+    postalcode = ReadConfig.getPostalcode()
     # initialize the logger
     logger = LogGeneration.generateLog()
 
@@ -35,21 +38,29 @@ class Test_addToCart:
             self.logger.error("*********************** Login test Failed ***********************")
             assert False
 
+
         self.inventoryPage = InventoryPage(self.driver)
         # Add to cart 3 products
         self.inventoryPage.addToCart(3)
+
+        self.inventoryPage.goToCart()
+        self.cartPage = CartPage(self.driver)
+        self.cartItems=self.cartPage.getCartItems()
+
+        assert len(self.cartItems) == 3, "The number of products added to cart is NOT correct"
+
         self.inventoryPage.checkout()
 
         self.checkoutPage = CheckoutPage(self.driver)
-        self.checkoutPage.enterFirstname("Alaeddine")
-        self.checkoutPage.enterLastname("Dridi")
-        self.checkoutPage.enterPostalCode("7000")
+        self.checkoutPage.enterFirstname(self.firstname)
+        self.checkoutPage.enterLastname(self.lastname)
+        self.checkoutPage.enterPostalCode(self.postalcode)
         self.checkoutPage.continueCheckout()
 
         self.tax = self.checkoutPage.getTax()
         self.inventoryPage.calculateTax()
         self.expectedTax= self.inventoryPage.getTotalTax()
-        assert self.tax==self.expectedTax, "The tax is not correct"
+        assert self.tax == self.expectedTax, "The tax is not correct"
 
         self.totalPrice= self.checkoutPage.getItemsPrice() + self.tax
         self.expectedTotalPrice=self.inventoryPage.getTotalItemsPrice() + self.expectedTax

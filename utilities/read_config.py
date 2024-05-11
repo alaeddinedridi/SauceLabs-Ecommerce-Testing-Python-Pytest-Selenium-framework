@@ -24,3 +24,17 @@ class ReadConfig:
         password=config.get("common data for testcases","password")
         return password
 
+    @staticmethod
+    def getFirstname():
+        firstname = config.get("common data for testcases", "firstname")
+        return firstname
+
+    @staticmethod
+    def getLastname():
+        lastname = config.get("common data for testcases", "lastname")
+        return lastname
+
+    @staticmethod
+    def getPostalcode():
+        postalcode = config.get("common data for testcases", "postalcode")
+        return postalcode

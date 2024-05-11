@@ -71,12 +71,13 @@ class InventoryPage:
         # backToProducts.click()
 
 
-    def checkout(self):
+    def goToCart(self):
         cartBtn = WebDriverWait(self.driver, 10).until(
             EC.element_to_be_clickable((By.CLASS_NAME, self.shopppingCart_link_class))
         )
         cartBtn.click()
 
+    def checkout(self):
         checkoutBtn = WebDriverWait(self.driver, 10).until(
             EC.element_to_be_clickable((By.ID, self.checkout_button_id))
         )

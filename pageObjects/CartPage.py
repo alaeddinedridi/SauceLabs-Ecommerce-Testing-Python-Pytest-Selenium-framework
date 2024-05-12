@@ -16,3 +16,11 @@ class CartPage:
             EC.visibility_of_all_elements_located((By.XPATH,self.cartItems_div_xpath))
         )
         return cartItems
+
+    def removeItemsFromCart(self):
+        cartItems = WebDriverWait(self.driver, 20).until(
+            EC.visibility_of_all_elements_located((By.XPATH, self.cartItems_div_xpath))
+        )
+        for item in range(len(cartItems)-1):
+            cartItemBtn=cartItems[item].find_element(By.TAG_NAME,'button')
+            cartItemBtn.click()

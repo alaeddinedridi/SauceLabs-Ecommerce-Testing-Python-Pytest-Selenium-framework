@@ -14,7 +14,7 @@ class CheckoutPage:
     finish_button_id="finish"
     totalItemsPrice_class="summary_subtotal_label"
     tax_class="summary_tax_label"
-
+    title_span_xpath="//span[@class,'title']"
 
     def __init__(self,driver):
         self.driver=driver
@@ -72,3 +72,9 @@ class CheckoutPage:
             EC.element_to_be_clickable((By.ID, self.finish_button_id))
         )
         finish_button.click()
+
+    def getPageTitle(self):
+        pageTitle = WebDriverWait(self.driver, 20).until(
+            EC.visibility_of_element_located((By.XPATH, self.title_span_xpath))
+        )
+        return pageTitle.text

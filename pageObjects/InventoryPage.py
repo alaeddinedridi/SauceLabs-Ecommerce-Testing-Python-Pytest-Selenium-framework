@@ -26,13 +26,15 @@ class InventoryPage:
     def addToCart(self,numberOfProducts):
         chosenProducts=[]
         for num in range(numberOfProducts):
-            products=WebDriverWait(self.driver, 10).until(
+            products=WebDriverWait(self.driver, 20).until(
                 EC.visibility_of_all_elements_located((By.XPATH,self.inventory_item_xpath))
             )
             randomProduct=randrange(len(products))
             while randomProduct in chosenProducts:
                 randomProduct = randrange(len(products))
 
+            print("These are chosenProducts: ",chosenProducts)
+            print("This is randomProduct: ",randomProduct)
 
             chosenProducts.insert(num,randomProduct)
             product=products[randomProduct]
@@ -41,17 +43,17 @@ class InventoryPage:
 
             self.calculateTotalItemsPrice()
 
-            addToCartBtn = WebDriverWait(self.driver, 10).until(
+            addToCartBtn = WebDriverWait(self.driver, 20).until(
                 EC.element_to_be_clickable((By.ID, self.addToCart_button_id))
             )
             addToCartBtn.click()
 
-            backToProducts = WebDriverWait(self.driver, 10).until(
+            backToProducts = WebDriverWait(self.driver, 20).until(
                 EC.element_to_be_clickable((By.ID, self.backToProducts_link_id))
             )
             backToProducts.click()
 
-            time.sleep(2)
+            time.sleep(3)
 
         # item = WebDriverWait(self.driver, 10).until(
         #     EC.element_to_be_clickable((By.ID,self.inventory_item_id))
@@ -72,7 +74,7 @@ class InventoryPage:
 
 
     def goToCart(self):
-        cartBtn = WebDriverWait(self.driver, 10).until(
+        cartBtn = WebDriverWait(self.driver, 20).until(
             EC.element_to_be_clickable((By.CLASS_NAME, self.shopppingCart_link_class))
         )
         cartBtn.click()

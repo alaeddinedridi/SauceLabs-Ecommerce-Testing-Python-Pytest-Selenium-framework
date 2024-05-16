@@ -37,6 +37,7 @@ class Test_Login:
 
 
     @pytest.mark.sanity
+
     def test_login(self,setup):
         self.logger.info("*********************** verifying Login Test ***********************")
         self.driver = setup

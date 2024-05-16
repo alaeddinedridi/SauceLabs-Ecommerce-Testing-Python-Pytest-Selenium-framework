@@ -1,7 +1,6 @@
 import time
 
 import pytest
-from selenium import webdriver
 from pageObjects.LoginPage import LoginPage
 from pageObjects.CheckoutPage import CheckoutPage
 from pageObjects.InventoryPage import InventoryPage
@@ -9,9 +8,9 @@ from pageObjects.OrderPage import OrderPage
 from pageObjects.CartPage import CartPage
 from utilities.read_config import ReadConfig
 from utilities.custom_logger import LogGeneration
+from pageObjects.BasePage import BasePage
 
-
-class Test_cart:
+class Test_cart(BasePage):
     baseUrl = ReadConfig.getApplicationURL()
     username = ReadConfig.getUsername()
     password = ReadConfig.getPassword()
@@ -76,22 +75,28 @@ class Test_cart:
 
 
         self.inventoryPage = InventoryPage(self.driver)
+        assert BasePage.getPageTitle(self, self.driver) == "Products"
+
         # Add to cart 3 products
         self.inventoryPage.addToCart(3)
 
         self.inventoryPage.goToCart()
         self.cartPage = CartPage(self.driver)
+
+        assert BasePage.getPageTitle(self, self.driver) == "Your Cart"
         self.cartItems=self.cartPage.getCartItems()
 
         assert len(self.cartItems) == 3, "The number of products added to cart is NOT correct"
 
         self.inventoryPage.checkout()
 
+        assert BasePage.getPageTitle(self, self.driver) == "Checkout: Your Information"
         self.checkoutPage = CheckoutPage(self.driver)
         self.checkoutPage.enterFirstname(self.firstname)
         self.checkoutPage.enterLastname(self.lastname)
         self.checkoutPage.enterPostalCode(self.postalcode)
         self.checkoutPage.continueCheckout()
+        assert BasePage.getPageTitle(self, self.driver) == "Checkout: Overview"
 
         self.tax = self.checkoutPage.getTax()
         self.inventoryPage.calculateTax()
@@ -112,5 +117,5 @@ class Test_cart:
         self.checkoutPage.finish()
 
         self.orderPage= OrderPage(self.driver)
-        assert self.orderPage.getPageTitle() == "Checkout: Complete!", "Page's title is wrong"
+        assert BasePage.getPageTitle(self,self.driver) == "Checkout: Complete!", "Page's title is wrong"
         assert self.orderPage.orderMessage() == "Thank you for your order!", "Order message is wrong"

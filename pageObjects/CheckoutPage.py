@@ -73,8 +73,8 @@ class CheckoutPage:
         )
         finish_button.click()
 
-    def getPageTitle(self):
-        pageTitle = WebDriverWait(self.driver, 20).until(
-            EC.visibility_of_element_located((By.XPATH, self.title_span_xpath))
-        )
-        return pageTitle.text
+    # def getPageTitle(self):
+    #     pageTitle = WebDriverWait(self.driver, 20).until(
+    #         EC.visibility_of_element_located((By.XPATH, self.title_span_xpath))
+    #     )
+    #     return pageTitle.text

@@ -53,9 +53,9 @@ class Test_cart(BasePage):
         self.cartPage.removeItemsFromCart()
 
         assert len(self.cartPage.getCartItems()) == 1, "An issue while removing items from the cart"
-        assert 1==0
 
-    # i have to install the dependency package and the order package so that dependency work
+
+    # i have to install the dependency package and the order package so that test dependency work
     @pytest.mark.order(2)
     @pytest.mark.dependency(depends=["Test_cart::test_addAndRemoveFromCart"])
     @pytest.mark.dev

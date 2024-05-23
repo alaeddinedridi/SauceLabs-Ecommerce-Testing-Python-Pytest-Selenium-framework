@@ -19,7 +19,7 @@ class CheckoutPage:
     def __init__(self,driver):
         self.driver=driver
 
-
+    # Enter firstname
     def enterFirstname(self,firstname):
         firstname_textbox = WebDriverWait(self.driver, 10).until(
             EC.presence_of_element_located((By.ID, self.firstname_textfield_id))
@@ -27,7 +27,7 @@ class CheckoutPage:
         firstname_textbox.clear()
         firstname_textbox.send_keys(firstname)
 
-
+    # Enter lastname
     def enterLastname(self,lastname):
         lastname_textbox = WebDriverWait(self.driver, 10).until(
             EC.presence_of_element_located((By.ID, self.lastname_textfield_id))
@@ -35,6 +35,7 @@ class CheckoutPage:
         lastname_textbox.clear()
         lastname_textbox.send_keys(lastname)
 
+    # Enter postal code
     def enterPostalCode(self,postalCode):
         postalcode_textbox = WebDriverWait(self.driver, 10).until(
             EC.presence_of_element_located((By.ID, self.postalCode_textfield_id))
@@ -42,7 +43,7 @@ class CheckoutPage:
         postalcode_textbox.clear()
         postalcode_textbox.send_keys(postalCode)
 
-
+    # Get the total price of the items
     def getItemsPrice(self):
         totalPrice_element = WebDriverWait(self.driver, 10).until(
             EC.visibility_of_element_located((By.CLASS_NAME, self.totalItemsPrice_class))
@@ -51,6 +52,7 @@ class CheckoutPage:
         print("This is items price: ",totalPrice)
         return totalPrice
 
+    # Get the total tax to pay
     def getTax(self):
         tax_element = WebDriverWait(self.driver, 10).until(
             EC.visibility_of_element_located((By.CLASS_NAME, self.tax_class))
@@ -59,7 +61,7 @@ class CheckoutPage:
         print("this is the tax : ",tax)
         return tax
 
-
+    # Go to Checkout: Overview page
     def continueCheckout(self):
         continue_button = WebDriverWait(self.driver, 10).until(
             EC.element_to_be_clickable((By.ID, self.continue_button_id))
@@ -67,6 +69,7 @@ class CheckoutPage:
         continue_button.click()
 
 
+    # Validate order
     def finish(self):
         finish_button = WebDriverWait(self.driver, 10).until(
             EC.element_to_be_clickable((By.ID, self.finish_button_id))

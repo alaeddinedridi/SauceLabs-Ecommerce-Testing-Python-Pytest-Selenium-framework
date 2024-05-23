@@ -20,6 +20,7 @@ class OrderPage:
     #     )
     #     return pageTitle.text
 
+    # Get complete page order message
     def orderMessage(self):
         msg = WebDriverWait(self.driver, 20).until(
             EC.visibility_of_element_located((By.XPATH, self.message_h2_xpath))

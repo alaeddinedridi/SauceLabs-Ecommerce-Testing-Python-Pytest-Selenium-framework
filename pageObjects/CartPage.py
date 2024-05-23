@@ -10,13 +10,14 @@ class CartPage:
     def __init__(self,driver):
         self.driver=driver
 
-
+    # Return cart items
     def getCartItems(self):
         cartItems=WebDriverWait(self.driver,20).until(
             EC.visibility_of_all_elements_located((By.XPATH,self.cartItems_div_xpath))
         )
         return cartItems
 
+    # Remove the number of cart items -1
     def removeItemsFromCart(self):
         cartItems = WebDriverWait(self.driver, 20).until(
             EC.visibility_of_all_elements_located((By.XPATH, self.cartItems_div_xpath))

@@ -20,7 +20,8 @@ class Test_cart(BasePage):
     # initialize the logger
     logger = LogGeneration.generateLog()
 
-
+    @pytest.mark.order(1)
+    @pytest.mark.dependency()
     @pytest.mark.dev
     def test_addAndRemoveFromCart(self,setup):
         self.logger.info("*********************** verifying Login Test ***********************")
@@ -52,8 +53,11 @@ class Test_cart(BasePage):
         self.cartPage.removeItemsFromCart()
 
         assert len(self.cartPage.getCartItems()) == 1, "An issue while removing items from the cart"
+        assert 1==0
 
-
+    # i have to install the dependency package and the order package so that dependency work
+    @pytest.mark.order(2)
+    @pytest.mark.dependency(depends=["Test_cart::test_addAndRemoveFromCart"])
     @pytest.mark.dev
     def test_checkout(self,setup):
         self.logger.info("*********************** verifying Login Test ***********************")

@@ -13,6 +13,7 @@ class LoginPage:
     def __init__(self,driver):
         self.driver=driver
 
+    # Enter username
     def enterUsername(self,username):
         username_textbox = WebDriverWait(self.driver, 10).until(
             EC.presence_of_element_located((By.ID, self.textbox_username_id))
@@ -22,6 +23,7 @@ class LoginPage:
         username_textbox.send_keys(username)
 
 
+    # Enter password
     def enterPassword(self,password):
         password_textbox = WebDriverWait(self.driver, 10).until(
             EC.presence_of_element_located((By.ID, self.textbox_password_id))
@@ -29,24 +31,28 @@ class LoginPage:
         password_textbox.clear()
         password_textbox.send_keys(password)
 
+    # Click on login
     def clickOnLoginButton(self):
         login_button = WebDriverWait(self.driver, 10).until(
             EC.element_to_be_clickable((By.ID, self.button_login_id))
         )
         login_button.click()
 
+    # Open menu
     def openTheMenu(self):
         menu_button = WebDriverWait(self.driver, 20).until(
             EC.element_to_be_clickable((By.ID, self.button_menu_id))
         )
         menu_button.click()
 
+    # Logout
     def clickOnLogoutLink(self):
         logout_button = WebDriverWait(self.driver, 10).until(
             EC.element_to_be_clickable((By.ID, self.link_logout_id))
         )
         logout_button.click()
 
+    # Check if there's a login error
     def isLogginErrorPresent(self):
         login_error_message = WebDriverWait(self.driver, 20).until(
             EC.visibility_of_element_located((By.XPATH, self.div_loginError_xpath))
